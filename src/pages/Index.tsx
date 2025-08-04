@@ -1,106 +1,94 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
-import InputCard from '@/components/InputCard';
-import SwipeDeck from '@/components/SwipeDeck';
-import ContextRibbon from '@/components/ContextRibbon';
-import SkeletonCard from '@/components/SkeletonCard';
-import EmptyState from '@/components/EmptyState';
-import ErrorToast from '@/components/ErrorToast';
-
-type AppState = 'input' | 'loading' | 'results' | 'error';
-
-interface SearchFilters {
-  mealTime?: string;
-  cravings?: string[];
-  dishQuery?: string;
-}
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import DishCard from '@/components/DishCard';
+import { sampleRestaurantData } from '@/data/sampleData';
 
 const Index = () => {
-  const [appState, setAppState] = useState<AppState>('input');
-  const [showError, setShowError] = useState(false);
-  const [searchFilters, setSearchFilters] = useState<SearchFilters>({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = (filters: SearchFilters) => {
-    setSearchFilters(filters);
-    setAppState('loading');
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
     
-    // Simulate API call with 1.2s delay
+    setIsLoading(true);
+    
+    // Simulate API call with 1s delay
     setTimeout(() => {
-      // Simulate occasional error (20% chance)
-      if (Math.random() < 0.2) {
-        setAppState('input');
-        setShowError(true);
-      } else {
-        setAppState('results');
-      }
-    }, 1200);
+      setIsLoading(false);
+      setShowResults(true);
+    }, 1000);
   };
 
-  const renderContent = () => {
-    switch (appState) {
-      case 'input':
-        return (
-          <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center px-4 py-8">
-            <InputCard onSubmit={handleSearch} />
-          </div>
-        );
-      
-      case 'loading':
-        return (
-          <>
-            <ContextRibbon {...searchFilters} />
-            <div className="min-h-[calc(100vh-7rem)] px-4 py-8">
-              <div className="max-w-md mx-auto relative">
-                <div className="relative h-[600px]">
-                  {Array.from({ length: 3 }).map((_, index) => {
-                    const zIndex = 3 - index;
-                    const scale = index === 0 ? 1 : 0.94;
-                    const opacity = index === 0 ? 1 : 0.6;
-                    const translateY = index * 8;
-
-                    return (
-                      <div
-                        key={index}
-                        className="absolute inset-0 transition-all duration-250 ease-out"
-                        style={{
-                          zIndex,
-                          transform: `scale(${scale}) translateY(${translateY}px)`,
-                          opacity
-                        }}
-                      >
-                        <SkeletonCard />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      
-      case 'results':
-        return (
-          <>
-            <ContextRibbon {...searchFilters} />
-            <SwipeDeck {...searchFilters} />
-          </>
-        );
-      
-      default:
-        return <EmptyState />;
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
+
+  // Filter dishes based on search query
+  const filteredDishes = sampleRestaurantData.dishes.filter(dish =>
+    dish.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    dish.vibeTag.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    dish.whyOrder.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Show first 10 results
+  const displayDishes = filteredDishes.slice(0, 10);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      {renderContent()}
-      
-      <ErrorToast 
-        show={showError} 
-        onDismiss={() => setShowError(false)} 
-      />
+      <div className="px-4 py-6 max-w-2xl mx-auto">
+        {/* Search Section - Positioned at top */}
+        <div className="space-y-4 mb-8">
+          <div className="relative">
+            <Input
+              type="text"
+              placeholder="Where are you eating today?"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="h-12 text-base rounded-xl border-input"
+            />
+          </div>
+          
+          <Button 
+            onClick={handleSearch}
+            disabled={!searchQuery.trim() || isLoading}
+            className="w-full h-12 text-base font-medium rounded-xl"
+          >
+            {isLoading ? 'Finding dishes...' : 'Find best dishes'}
+          </Button>
+        </div>
+
+        {/* Results Section - Directly below search */}
+        {showResults && (
+          <div className="space-y-4">
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-semibold text-foreground">
+                Found {displayDishes.length} dishes
+              </h2>
+              {displayDishes.length === 0 && (
+                <p className="text-muted-foreground mt-2">
+                  No dishes found. Try a different search term.
+                </p>
+              )}
+            </div>
+            
+            <div className="space-y-4">
+              {displayDishes.map((dish) => (
+                <div key={dish.id} className="bg-card rounded-xl border border-border overflow-hidden">
+                  <DishCard dish={dish} isActive={true} onSwipe={() => {}} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
