@@ -13,6 +13,7 @@ export const sampleRestaurantData = {
       vibeTag: "Fresh & Light",
       whyOrder: "Perfect Instagram-worthy brunch with creamy avocado and crispy sourdough.",
       watchOut: "Portion is smaller than expected for the price point.",
+      score: 8.7,
       reviews: [
         "Totally worth the hype, the bread is perfectly toasted.",
         "Great healthy option that still feels indulgent.",
@@ -32,6 +33,7 @@ export const sampleRestaurantData = {
       vibeTag: "Rich & Indulgent",
       whyOrder: "Ultimate comfort food with authentic truffle flavor and perfectly creamy texture.",
       watchOut: "Very rich and heavy - consider sharing or saving room.",
+      score: 9.2,
       reviews: [
         "Richest mac and cheese I've ever had, truffle flavor is perfect.",
         "Comfort food at its finest, could eat this every day.",
@@ -52,6 +54,7 @@ export const sampleRestaurantData = {
       vibeTag: "Fresh & Healthy",
       whyOrder: "Super fresh fish with perfect spice level and satisfying quinoa base.",
       watchOut: "Spicy mayo can overwhelm the delicate salmon flavor.",
+      score: 8.9,
       reviews: [
         "Super fresh fish and the spicy mayo adds the perfect kick.",
         "Healthy and filling, great for lunch after the gym.",
@@ -70,6 +73,7 @@ export const sampleRestaurantData = {
       vibeTag: "Rich & Decadent",
       whyOrder: "Molten center is consistently perfect and pairs beautifully with vanilla ice cream.",
       watchOut: "Takes 15 minutes to prepare - order early in your meal.",
+      score: 9.5,
       reviews: [
         "The molten center is perfectly gooey every time.",
         "Best dessert on the menu, always order this to share.",
@@ -89,6 +93,7 @@ export const sampleRestaurantData = {
       vibeTag: "Smoky & Savory",
       whyOrder: "Crispy thin crust with generous toppings and perfectly balanced BBQ sauce.",
       watchOut: "Best shared - can be messy to eat solo.",
+      score: 8.4,
       reviews: [
         "Great for sharing, the BBQ sauce has just the right sweetness.",
         "Crispy crust and generous toppings, better than most pizza places.",

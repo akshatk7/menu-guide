@@ -18,13 +18,7 @@ const SwipeDeck = ({ mealTime, cravings, dishQuery }: SwipeDeckProps) => {
   const dishes = sampleRestaurantData.dishes;
   const isLastCard = currentIndex >= dishes.length - 1;
 
-  const handleSwipe = (direction: 'left' | 'right') => {
-    const currentDish = dishes[currentIndex];
-    
-    if (direction === 'right') {
-      setLikedDishes(prev => [...prev, currentDish.id]);
-    }
-
+  const handleSwipe = () => {
     if (isLastCard) {
       setShowDecisionSheet(true);
     } else {
@@ -43,7 +37,6 @@ const SwipeDeck = ({ mealTime, cravings, dishQuery }: SwipeDeckProps) => {
   if (showDecisionSheet) {
     return (
       <DecisionSheet
-        likedDishes={dishes.filter(dish => likedDishes.includes(dish.id))}
         onStartOver={handleStartOver}
       />
     );

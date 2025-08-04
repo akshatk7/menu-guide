@@ -15,7 +15,7 @@ interface InputCardProps {
 
 const InputCard = ({ onSubmit }: InputCardProps) => {
   const [restaurant, setRestaurant] = useState('');
-  const [mealTime, setMealTime] = useState('Lunch');
+  const [mealTime, setMealTime] = useState('');
   const [cravings, setCravings] = useState<string[]>([]);
   const [specificDish, setSpecificDish] = useState('');
 
@@ -32,15 +32,7 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
 
   const handleSubmit = () => {
     onSubmit({
-      mealTime: mealTime,
-      cravings: cravings,
-      dishQuery: specificDish.trim() || undefined
-    });
-  };
-
-  const handleSkip = () => {
-    onSubmit({
-      mealTime: mealTime,
+      mealTime: mealTime || undefined,
       cravings: cravings,
       dishQuery: specificDish.trim() || undefined
     });
@@ -54,7 +46,7 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
           <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search restaurant or use my location…"
+            placeholder="Search restaurant"
             value={restaurant}
             onChange={(e) => setRestaurant(e.target.value)}
             className="pl-10 h-12 text-base rounded-xl border-input"
@@ -68,7 +60,7 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
             {mealTimes.map((time) => (
               <button
                 key={time}
-                onClick={() => setMealTime(time)}
+                onClick={() => setMealTime(mealTime === time ? '' : time)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-smooth ${
                   mealTime === time
                     ? 'bg-primary text-primary-foreground'
@@ -121,15 +113,6 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
           Find best dishes
         </Button>
 
-        {/* Skip Link */}
-        <div className="text-center">
-          <button
-            onClick={handleSkip}
-            className="text-sm text-muted-foreground hover:text-foreground transition-smooth"
-          >
-            Skip, show me everything
-          </button>
-        </div>
       </div>
     </div>
   );

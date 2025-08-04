@@ -10,13 +10,14 @@ interface Dish {
   vibeTag: string;
   whyOrder: string;
   watchOut: string;
+  score: number;
   reviews: string[];
 }
 
 interface DishCardProps {
   dish: Dish;
   isActive?: boolean;
-  onSwipe?: (direction: 'left' | 'right') => void;
+  onSwipe?: () => void;
 }
 
 const DishCard = ({ dish, isActive = true, onSwipe }: DishCardProps) => {
@@ -74,7 +75,7 @@ const DishCard = ({ dish, isActive = true, onSwipe }: DishCardProps) => {
     const threshold = 80;
     
     if (Math.abs(diffX) > threshold && onSwipe) {
-      onSwipe(diffX > 0 ? 'right' : 'left');
+      onSwipe();
     } else if (cardRef.current) {
       // Snap back
       cardRef.current.style.transform = 'translateX(0px) rotate(0deg)';
@@ -84,9 +85,15 @@ const DishCard = ({ dish, isActive = true, onSwipe }: DishCardProps) => {
     setDragState({ isDragging: false, startX: 0, currentX: 0 });
   };
 
-  const handleButtonAction = (action: 'skip' | 'like') => {
-    if (onSwipe) {
-      onSwipe(action === 'like' ? 'right' : 'left');
+  const handleImageClick = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const imageWidth = rect.width;
+    
+    if (clickX > imageWidth / 2) {
+      handlePhotoNavigation('next');
+    } else {
+      handlePhotoNavigation('prev');
     }
   };
 
@@ -107,49 +114,40 @@ const DishCard = ({ dish, isActive = true, onSwipe }: DishCardProps) => {
           <img 
             src={dish.photos[currentPhotoIndex]} 
             alt="Placeholder dish photo"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover cursor-pointer"
+            onClick={handleImageClick}
           />
           
-          {/* Photo Navigation Overlay */}
+          {/* Dot Indicators */}
           {dish.photos.length > 1 && (
-            <>
-              <button
-                onClick={() => handlePhotoNavigation('prev')}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
-              >
-                ←
-              </button>
-              <button
-                onClick={() => handlePhotoNavigation('next')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
-              >
-                →
-              </button>
-              
-              {/* Dot Indicators */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
-                {dish.photos.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentPhotoIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === currentPhotoIndex 
-                        ? 'bg-white scale-110' 
-                        : 'bg-white/60'
-                    }`}
-                  />
-                ))}
-              </div>
-            </>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+              {dish.photos.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPhotoIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentPhotoIndex 
+                      ? 'bg-white scale-110' 
+                      : 'bg-white/60'
+                  }`}
+                />
+              ))}
+            </div>
           )}
         </div>
         
         {/* Content */}
         <div className="p-4 space-y-3 flex-1 flex flex-col">
-          {/* Dish Name */}
-          <h3 className="font-heading font-bold text-xl text-foreground">
-            {dish.name}
-          </h3>
+          {/* Dish Name & Score */}
+          <div className="flex items-start justify-between">
+            <h3 className="font-heading font-bold text-xl text-foreground flex-1 pr-2">
+              {dish.name}
+            </h3>
+            <div className="flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded-full">
+              <span className="text-sm font-semibold">{dish.score}</span>
+              <span className="text-xs">/10</span>
+            </div>
+          </div>
           
           {/* Vibe Tag & Badges */}
           <div className="flex items-center justify-between">
@@ -205,28 +203,6 @@ const DishCard = ({ dish, isActive = true, onSwipe }: DishCardProps) => {
           </div>
         </div>
       </div>
-      
-      {/* Action Buttons */}
-      {isActive && onSwipe && (
-        <div className="flex gap-3 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => handleButtonAction('skip')}
-            className="flex-1 h-12 rounded-xl"
-          >
-            <X className="h-4 w-4 mr-2" />
-            Skip
-          </Button>
-          
-          <Button
-            onClick={() => handleButtonAction('like')}
-            className="flex-1 h-12 rounded-xl"
-          >
-            <Heart className="h-4 w-4 mr-2" />
-            Add to order
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
