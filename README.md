@@ -1,73 +1,148 @@
-# Welcome to your Lovable project
+# What Should I Order? 🍴
 
-## Project info
+An AI-powered restaurant dish recommendation app that helps you discover the best dishes at any restaurant using Google Places API and OpenAI analysis.
 
-**URL**: https://lovable.dev/projects/74adb890-9373-48d0-8fe3-b7a0f7d2fd5d
+## 🚀 Features
 
-## How can I edit this code?
+- **Smart Restaurant Search**: Google Places Autocomplete API integration
+- **AI-Powered Analysis**: OpenAI GPT-4o analyzes restaurant reviews to find top dishes
+- **Dish Recommendations**: Get personalized dish suggestions with scores and summaries
+- **Clean UI**: Modern, responsive interface built with React and Tailwind CSS
+- **Production Ready**: Scalable backend with caching, security, and monitoring
 
-There are several ways of editing your application.
+## 🏗️ Architecture
 
-**Use Lovable**
+```
+menu-guide/
+├── src/                    # Frontend (React + TypeScript)
+│   ├── components/         # UI components
+│   ├── pages/             # Page components
+│   └── ...
+├── backend/               # Backend API (Node.js + Express)
+│   ├── src/
+│   │   ├── controllers/   # Request handlers
+│   │   ├── services/      # Business logic
+│   │   ├── routes/        # API routes
+│   │   └── ...
+│   └── ...
+└── ...
+```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/74adb890-9373-48d0-8fe3-b7a0f7d2fd5d) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development
+- **Tailwind CSS** for styling
+- **shadcn/ui** for components
 
-**Use your preferred IDE**
+### Backend
+- **Node.js** with Express
+- **Google Places API** for restaurant search
+- **OpenAI GPT-4o** for AI analysis
+- **Redis** for caching
+- **Winston** for logging
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Quick Start
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Frontend Development
 
-Follow these steps:
+```bash
+# Install dependencies
+npm install
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit `http://localhost:8081` to see the app.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Backend Development
 
-**Use GitHub Codespaces**
+```bash
+# Navigate to backend
+cd backend
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Install dependencies
+npm install
 
-## What technologies are used for this project?
+# Set up environment variables
+cp .env.example .env
+# Add your API keys to .env
 
-This project is built with:
+# Start development server
+npm run dev
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The backend runs on `http://localhost:3001`.
 
-## How can I deploy this project?
+## 🔑 Required API Keys
 
-Simply open [Lovable](https://lovable.dev/projects/74adb890-9373-48d0-8fe3-b7a0f7d2fd5d) and click on Share -> Publish.
+To use the full functionality, you'll need:
 
-## Can I connect a custom domain to my Lovable project?
+1. **Google Maps API Key**
+   - Enable Places API
+   - Add to `backend/.env` as `GOOGLE_MAPS_API_KEY`
 
-Yes, you can!
+2. **OpenAI API Key**
+   - Get from OpenAI platform
+   - Add to `backend/.env` as `OPENAI_API_KEY`
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📡 API Endpoints
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Frontend
+- Search for restaurants and get dish recommendations
+- Clean, responsive interface
+- Real-time search suggestions
+
+### Backend
+- `GET /api/autocomplete` - Restaurant search suggestions
+- `POST /api/dishes` - Get AI-analyzed top dishes
+- `GET /health` - Health check endpoint
+
+## 🧠 How It Works
+
+1. **Search**: User searches for a restaurant
+2. **Autocomplete**: Google Places API provides restaurant suggestions
+3. **Selection**: User selects a restaurant
+4. **Analysis**: Backend fetches Google reviews and analyzes with AI
+5. **Results**: Returns top dishes with scores and summaries
+
+## 🔒 Security Features
+
+- Rate limiting (100 req/15min per IP)
+- Input validation with Joi
+- Security headers with Helmet
+- CORS configuration
+- Comprehensive error handling
+
+## 📊 Performance
+
+- Redis caching for API responses
+- Optimized database queries
+- Efficient AI prompt engineering
+- Production-ready logging
+
+## 🚀 Deployment
+
+### Frontend
+Deploy to Vercel, Netlify, or any static hosting service.
+
+### Backend
+Deploy to Railway, Render, or any Node.js hosting service.
+
+## 📝 License
+
+ISC License
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+---
+
+Built with ❤️ using modern web technologies
