@@ -4,9 +4,15 @@ export const sampleRestaurantData = {
     {
       id: 1,
       name: "Avocado Toast Deluxe",
-      img: "https://picsum.photos/seed/avo/400/300",
+      photos: [
+        "https://picsum.photos/seed/avo1/400/300",
+        "https://picsum.photos/seed/avo2/400/300",
+        "https://picsum.photos/seed/avo3/400/300"
+      ],
       badges: ["🥦", "🍽️"],
-      blurb: "Light crunchy sourdough stacked with creamy avocado and pickled onions.",
+      vibeTag: "Fresh & Light",
+      whyOrder: "Perfect Instagram-worthy brunch with creamy avocado and crispy sourdough.",
+      watchOut: "Portion is smaller than expected for the price point.",
       reviews: [
         "Totally worth the hype, the bread is perfectly toasted.",
         "Great healthy option that still feels indulgent.",
@@ -16,9 +22,16 @@ export const sampleRestaurantData = {
     {
       id: 2,
       name: "Truffle Mac & Cheese",
-      img: "https://picsum.photos/seed/mac/400/300",
+      photos: [
+        "https://picsum.photos/seed/mac1/400/300",
+        "https://picsum.photos/seed/mac2/400/300",
+        "https://picsum.photos/seed/mac3/400/300",
+        "https://picsum.photos/seed/mac4/400/300"
+      ],
       badges: ["🌶️", "🍽️"],
-      blurb: "Creamy three-cheese blend with truffle oil and crispy breadcrumb topping.",
+      vibeTag: "Rich & Indulgent",
+      whyOrder: "Ultimate comfort food with authentic truffle flavor and perfectly creamy texture.",
+      watchOut: "Very rich and heavy - consider sharing or saving room.",
       reviews: [
         "Richest mac and cheese I've ever had, truffle flavor is perfect.",
         "Comfort food at its finest, could eat this every day.",
@@ -28,9 +41,17 @@ export const sampleRestaurantData = {
     {
       id: 3,
       name: "Salmon Poke Bowl",
-      img: "https://picsum.photos/seed/poke/400/300",
+      photos: [
+        "https://picsum.photos/seed/poke1/400/300",
+        "https://picsum.photos/seed/poke2/400/300",
+        "https://picsum.photos/seed/poke3/400/300",
+        "https://picsum.photos/seed/poke4/400/300",
+        "https://picsum.photos/seed/poke5/400/300"
+      ],
       badges: ["🥦", "🌶️"],
-      blurb: "Fresh Atlantic salmon with quinoa, edamame, and spicy mayo drizzle.",
+      vibeTag: "Fresh & Healthy",
+      whyOrder: "Super fresh fish with perfect spice level and satisfying quinoa base.",
+      watchOut: "Spicy mayo can overwhelm the delicate salmon flavor.",
       reviews: [
         "Super fresh fish and the spicy mayo adds the perfect kick.",
         "Healthy and filling, great for lunch after the gym.",
@@ -40,9 +61,15 @@ export const sampleRestaurantData = {
     {
       id: 4,
       name: "Chocolate Lava Cake",
-      img: "https://picsum.photos/seed/choc/400/300",
+      photos: [
+        "https://picsum.photos/seed/choc1/400/300",
+        "https://picsum.photos/seed/choc2/400/300",
+        "https://picsum.photos/seed/choc3/400/300"
+      ],
       badges: ["🍽️"],
-      blurb: "Warm chocolate cake with molten center, served with vanilla ice cream.",
+      vibeTag: "Rich & Decadent",
+      whyOrder: "Molten center is consistently perfect and pairs beautifully with vanilla ice cream.",
+      watchOut: "Takes 15 minutes to prepare - order early in your meal.",
       reviews: [
         "The molten center is perfectly gooey every time.",
         "Best dessert on the menu, always order this to share.",
@@ -52,9 +79,16 @@ export const sampleRestaurantData = {
     {
       id: 5,
       name: "BBQ Chicken Flatbread",
-      img: "https://picsum.photos/seed/flat/400/300",
+      photos: [
+        "https://picsum.photos/seed/flat1/400/300",
+        "https://picsum.photos/seed/flat2/400/300",
+        "https://picsum.photos/seed/flat3/400/300",
+        "https://picsum.photos/seed/flat4/400/300"
+      ],
       badges: ["🌶️", "🍽️"],
-      blurb: "Thin crust topped with BBQ chicken, red onions, and cilantro.",
+      vibeTag: "Smoky & Savory",
+      whyOrder: "Crispy thin crust with generous toppings and perfectly balanced BBQ sauce.",
+      watchOut: "Best shared - can be messy to eat solo.",
       reviews: [
         "Great for sharing, the BBQ sauce has just the right sweetness.",
         "Crispy crust and generous toppings, better than most pizza places.",

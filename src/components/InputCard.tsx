@@ -3,8 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MapPin } from 'lucide-react';
 
+interface SearchFilters {
+  mealTime?: string;
+  cravings?: string[];
+  dishQuery?: string;
+}
+
 interface InputCardProps {
-  onSubmit: () => void;
+  onSubmit: (filters: SearchFilters) => void;
 }
 
 const InputCard = ({ onSubmit }: InputCardProps) => {
@@ -25,13 +31,19 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
   };
 
   const handleSubmit = () => {
-    if (restaurant.trim()) {
-      onSubmit();
-    }
+    onSubmit({
+      mealTime: mealTime,
+      cravings: cravings,
+      dishQuery: specificDish.trim() || undefined
+    });
   };
 
   const handleSkip = () => {
-    onSubmit();
+    onSubmit({
+      mealTime: mealTime,
+      cravings: cravings,
+      dishQuery: specificDish.trim() || undefined
+    });
   };
 
   return (
@@ -104,7 +116,7 @@ const InputCard = ({ onSubmit }: InputCardProps) => {
         <Button 
           onClick={handleSubmit}
           className="w-full h-12 text-base font-medium rounded-xl"
-          disabled={!restaurant.trim()}
+          disabled={false}
         >
           Find best dishes
         </Button>
